@@ -1,0 +1,5 @@
+{
+  "version": "0.2",
+  "files": ["*.config.ts", "*.json", "*.md", "LICENSE", "src/**"],
+  "words": ["govnotech", "oxlint", "revenko", "vova"]
+}

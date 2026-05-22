@@ -1,0 +1,91 @@
+{
+  "name": "@govnotech/conventions",
+  "version": "0.0.0",
+  "homepage": "https://github.com/govnotech/conventions#readme",
+  "license": "MIT",
+  "author": "Vova Revenko <vova@revenko.org>",
+  "repository": "github:govnotech/conventions",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    "./base": {
+      "types": "./dist/base/index.d.mts",
+      "default": "./dist/base/index.mjs"
+    },
+    "./vue": {
+      "types": "./dist/vue/index.d.mts",
+      "default": "./dist/vue/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint:ox": "oxlint . --max-warnings 0",
+    "lint:es": "eslint . --max-warnings 0 --cache",
+    "check": "run-p --continue-on-error check:*",
+    "check:code": "run-p --continue-on-error lint:*",
+    "check:format": "oxfmt --check",
+    "check:spelling": "cspell lint",
+    "check:spelling-unused": "cspell-check-unused-words",
+    "check:types": "tsc --noEmit",
+    "fix": "run-s fix:*",
+    "fix:code": "run-s \"lint:es --fix\" \"lint:ox --fix\"",
+    "fix:format": "oxfmt --write",
+    "fix:spelling-unused": "cspell-check-unused-words --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.8.0",
+    "@vitest/eslint-plugin": "^1.6.17",
+    "@vue/eslint-config-typescript": "^14.7.0",
+    "cspell": "^10.0.0",
+    "cspell-check-unused-words": "^1.6.0",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-oxlint": "^1.65.0",
+    "eslint-plugin-playwright": "^2.10.2",
+    "eslint-plugin-vue": "^10.9.1",
+    "jiti": "^2.7.0",
+    "npm-run-all2": "^8.0.4",
+    "oxfmt": "^0.50.0",
+    "oxlint": "^1.65.0",
+    "tsdown": "^0.22.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.3"
+  },
+  "peerDependencies": {
+    "@eslint/js": "^10.0.0",
+    "@vitest/eslint-plugin": "^1.6.0",
+    "@vue/eslint-config-typescript": "^14.7.0",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "eslint-plugin-oxlint": "^1.60.0",
+    "eslint-plugin-playwright": "^2.10.0",
+    "eslint-plugin-vue": "^10.0.0",
+    "jiti": "^2.0.0",
+    "oxfmt": "^0.45.0",
+    "oxlint": "^1.60.0",
+    "typescript": ">=5.0.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vitest/eslint-plugin": {
+      "optional": true
+    },
+    "@vue/eslint-config-typescript": {
+      "optional": true
+    },
+    "eslint-plugin-playwright": {
+      "optional": true
+    },
+    "eslint-plugin-vue": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "packageManager": "pnpm@10.28.2"
+}

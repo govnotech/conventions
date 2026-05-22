@@ -1,0 +1,11 @@
+.DS_Store
+
+dist/
+node_modules/
+
+.eslintcache
+*.tgz
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
