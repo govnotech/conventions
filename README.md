@@ -211,7 +211,7 @@ default:
   image: node:24-alpine
   before_script:
     - corepack enable
-    - corepack prepare $(node -p "require('./package.json').packageManager") --activate
+    - corepack prepare --activate
   cache:
     key:
       files:
