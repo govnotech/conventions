@@ -18,5 +18,5 @@
       "@govnotech/conventions/vue": ["./src/vue/index.ts"]
     }
   },
-  "include": ["src/**/*", "*.config.ts", "eslint.config.ts"]
+  "include": ["src/**/*", "*.config.ts"]
 }
