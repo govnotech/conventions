@@ -1,1 +1,1 @@
-export { oxfmt as default } from '@govnotech/conventions/base'
+export { default } from './src/base/oxfmt.ts'

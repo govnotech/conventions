@@ -1,1 +1,1 @@
-export { oxlint as default } from '@govnotech/conventions/base'
+export { default } from './src/base/oxlint.ts'

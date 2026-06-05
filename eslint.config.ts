@@ -1,1 +1,1 @@
-export { eslint as default } from '@govnotech/conventions/base'
+export { default } from './src/base/eslint.ts'

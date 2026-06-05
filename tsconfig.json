@@ -12,11 +12,7 @@
     "declarationMap": true,
     "noEmit": true,
     "isolatedModules": true,
-    "resolveJsonModule": true,
-    "paths": {
-      "@govnotech/conventions/base": ["./src/base/index.ts"],
-      "@govnotech/conventions/vue": ["./src/vue/index.ts"]
-    }
+    "allowImportingTsExtensions": true
   },
   "include": ["src/**/*", "*.config.ts"]
 }
