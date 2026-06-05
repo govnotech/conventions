@@ -1,0 +1,247 @@
+# @govnotech/conventions
+
+Shared, opinionated code-style conventions and configurations for TypeScript
+projects. Built on top of [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html).
+
+## Table of Contents
+
+- [Requirements](#requirements)
+- [Presets](#presets)
+- [1. Install](#1-install)
+- [2. Configure the EditorConfig](#2-configure-the-editorconfig)
+- [3. Configure the Oxfmt](#3-configure-the-oxfmt)
+- [4. Configure IDEs](#4-configure-ides)
+  - [VS Code](#vs-code)
+- [5. Add npm scripts](#5-add-npm-scripts)
+- [6. Set up CI (optional)](#6-set-up-ci-optional)
+  - [GitHub Actions](#github-actions)
+  - [GitLab CI](#gitlab-ci)
+
+## Requirements
+
+- Node `>=22.12.0`
+- pnpm (in examples, but any package manager works)
+
+## Presets
+
+Presets are addressed by a key on the package subpath,
+`@govnotech/conventions/<key>`:
+
+| Key    | For                                |
+| ------ | ---------------------------------- |
+| `base` | Plain TypeScript or JavaScript     |
+| `vue`  | Vue (adds Vue, Vitest, Playwright) |
+
+The examples below use `base` — swap in the key that matches your stack.
+
+## 1. Install
+
+```bash
+pnpm add -D @govnotech/conventions oxfmt
+```
+
+`oxfmt` is the formatter; `@govnotech/conventions` provides the preset it reads.
+
+## 2. Configure the EditorConfig
+
+Create `.editorconfig` at the repo root:
+
+```ini
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 80
+
+# Oxfmt and Prettier won’t trim trailing whitespace inside template strings,
+# but your editor might: https://prettier.io/docs/en/configuration#editorconfig
+# trim_trailing_whitespace = true
+```
+
+## 3. Configure the Oxfmt
+
+Create `oxfmt.config.ts` at the repo root. Re-export the preset as-is:
+
+```ts
+export { oxfmt as default } from '@govnotech/conventions/base'
+```
+
+Or spread it to override specific options:
+
+```ts
+import { oxfmt } from '@govnotech/conventions/base'
+
+export default {
+  ...oxfmt,
+  // ...your overrides
+}
+```
+
+## 4. Configure IDEs
+
+Add configurations only for IDEs your team uses:
+
+- [VS Code](#vs-code)
+
+### VS Code
+
+Recommend the extensions in `.vscode/extensions.json`:
+
+```json
+{
+  "recommendations": ["EditorConfig.EditorConfig", "oxc.oxc-vscode"]
+}
+```
+
+Set up actions on save in `.vscode/settings.json`:
+
+```json
+{
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.format.oxc": "always"
+  }
+}
+```
+
+## 5. Add npm scripts
+
+Install `npm-run-all2` to run multiple scripts in parallel or series:
+
+```bash
+pnpm add -D npm-run-all2
+```
+
+Then add these scripts to `package.json`:
+
+```json
+{
+  "scripts": {
+    "check": "run-p --continue-on-error check:*",
+    "check:format": "oxfmt --check",
+    "fix": "run-s fix:*",
+    "fix:format": "oxfmt --write"
+  }
+}
+```
+
+You can now run:
+
+- `pnpm check` to run all checks in parallel
+- `pnpm check:format` to check formatting only
+- `pnpm fix` to run all fixes in series
+- `pnpm fix:format` to fix formatting only
+
+## 6. Set up CI (optional)
+
+Examples only — the real setup depends on your platform and existing pipeline.
+Both install dependencies once, then run each `check:*` as a parallel job.
+
+- [GitHub Actions](#github-actions)
+- [GitLab CI](#gitlab-ci)
+
+### GitHub Actions
+
+`.github/actions/setup/action.yml`:
+
+```yaml
+name: Setup
+description: Set up pnpm and Node, then install dependencies
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 24
+    - uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('pnpm-lock.yaml') }}
+    - run: pnpm install --frozen-lockfile
+      shell: bash
+```
+
+`.github/workflows/ci.yml`:
+
+```yaml
+# ...
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+
+  check:
+    needs: install
+    name: check:${{ matrix.script }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        script: [format]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm check:${{ matrix.script }}
+
+  # ...
+```
+
+### GitLab CI
+
+`.gitlab-ci.yml`:
+
+```yaml
+# ...
+
+stages:
+  - deps
+  - check
+  # ...
+
+default:
+  image: node:24-alpine
+  before_script:
+    - corepack enable
+    - corepack prepare $(node -p "require('./package.json').packageManager") --activate
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - node_modules
+    policy: pull
+
+install:
+  stage: deps
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - node_modules
+    policy: pull-push
+  script:
+    - pnpm install --frozen-lockfile
+
+check:format:
+  stage: check
+  needs:
+    - install
+  script:
+    - pnpm check:format
+
+# ...
+```
+
+## License
+
+MIT © Vova Revenko
