@@ -1,7 +1,9 @@
 # @govnotech/conventions
 
-Shared, opinionated code-style conventions and configurations for TypeScript
-projects. Built on top of [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html).
+Shared, opinionated code-style conventions for TypeScript projects.
+
+Presets are exposed from `@govnotech/conventions/<key>` so the same package can
+be used across all your projects.
 
 ## Table of Contents
 
