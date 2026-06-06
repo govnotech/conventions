@@ -15,6 +15,7 @@ projects. Built on top of [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html
   - [JetBrains](#jetbrains)
   - [Zed](#zed)
   - [Neovim](#neovim)
+  - [Other editors](#other-editors)
 - [5. Add npm scripts](#5-add-npm-scripts)
 - [6. Set up CI (optional)](#6-set-up-ci-optional)
   - [GitHub Actions](#github-actions)
@@ -95,6 +96,7 @@ Add configurations only for IDEs your team uses:
 - [JetBrains](#jetbrains)
 - [Zed](#zed)
 - [Neovim](#neovim)
+- [Other editors](#other-editors)
 
 ### VS Code
 
@@ -166,6 +168,15 @@ vim.lsp.enable('oxfmt')
 [conform.nvim](https://github.com/stevearc/conform.nvim) and
 [coc.nvim](https://github.com/neoclide/coc.nvim) (`:CocInstall coc-oxc`) work
 too.
+
+### Other editors
+
+Any editor with LSP support can run `oxfmt --lsp` directly. Without LSP, pipe
+files through the CLI:
+
+```bash
+cat src/foo.ts | oxfmt --stdin-filepath src/foo.ts
+```
 
 ## 5. Add npm scripts
 
