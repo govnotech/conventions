@@ -5,8 +5,27 @@ Shared, opinionated code-style conventions for TypeScript projects.
 Presets are exposed from `@govnotech/conventions/<key>` so the same package can
 be used across all your projects.
 
+## Quick Start
+
+```bash
+pnpm add -D @govnotech/conventions oxfmt
+```
+
+Create `oxfmt.config.ts` at the repo root:
+
+```ts
+export { oxfmt as default } from '@govnotech/conventions/base'
+```
+
+Check formatting:
+
+```bash
+pnpm exec oxfmt --check
+```
+
 ## Table of Contents
 
+- [Quick Start](#quick-start)
 - [Requirements](#requirements)
 - [Presets](#presets)
 - [1. Install](#1-install)
