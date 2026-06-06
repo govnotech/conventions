@@ -107,6 +107,14 @@ export default {
 }
 ```
 
+### Verify setup
+
+Run the formatter check before configuring IDEs or CI:
+
+```bash
+pnpm exec oxfmt --check
+```
+
 ## 4. Configure IDEs
 
 Add only the editor configurations your team uses:
