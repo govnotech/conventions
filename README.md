@@ -23,6 +23,9 @@ Verify setup:
 pnpm exec oxfmt --check
 ```
 
+If the check passes, continue with the full setup below to make formatting
+consistent in editors, scripts, and CI.
+
 ## Table of Contents
 
 - [Requirements](#requirements)
