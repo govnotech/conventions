@@ -17,7 +17,7 @@ Create `oxfmt.config.ts` at the repo root:
 export { oxfmt as default } from '@govnotech/conventions/base'
 ```
 
-Check formatting:
+Verify setup:
 
 ```bash
 pnpm exec oxfmt --check
@@ -25,7 +25,6 @@ pnpm exec oxfmt --check
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
 - [Requirements](#requirements)
 - [Presets](#presets)
 - [1. Install](#1-install)
@@ -66,7 +65,8 @@ snippets work as-is; replace `base` with another key when needed.
 pnpm add -D @govnotech/conventions oxfmt
 ```
 
-`oxfmt` is the formatter; `@govnotech/conventions` provides the preset it reads.
+[Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) is the formatter;
+`@govnotech/conventions` provides the preset it reads.
 
 ## 2. Configure EditorConfig
 
@@ -164,7 +164,7 @@ format on save — enable it in the plugin settings.
 ### Zed
 
 Install the [Oxc extension](https://zed.dev/extensions/oxc), or let it
-auto-install via `.zed/settings.json`. There, set `oxfmt` as the formatter:
+auto-install via `.zed/settings.json`. Set `oxfmt` as the formatter there:
 
 ```json
 {
