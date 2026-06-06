@@ -177,8 +177,7 @@ Repeat the `languages` entry for each language Oxfmt should format —
 
 ### Neovim
 
-Via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), with `oxfmt`
-on `$PATH` (e.g. `npm i -g oxfmt`):
+Via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig):
 
 ```lua
 vim.lsp.enable('oxfmt')
@@ -190,11 +189,11 @@ too.
 
 ### Other editors
 
-Any editor with LSP support can run `oxfmt --lsp` directly. Without LSP, pipe
-files through the CLI:
+Use your editor’s Oxc integration when available. Without an integration, pipe
+files through the local CLI:
 
 ```bash
-cat src/foo.ts | oxfmt --stdin-filepath src/foo.ts
+pnpm exec oxfmt --stdin-filepath src/foo.ts < src/foo.ts
 ```
 
 ## 5. Add npm scripts
