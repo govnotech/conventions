@@ -109,9 +109,6 @@ export default {
 
 ## 4. Configure IDEs
 
-Editor extensions run `oxfmt --lsp` from the project’s local install
-([step 1](#1-install)) and pick up `oxfmt.config.ts` automatically.
-
 Add configurations only for IDEs your team uses:
 
 - [VS Code](#vs-code)
