@@ -57,7 +57,8 @@ Presets are addressed by a key on the package subpath,
 | `base` | Plain TypeScript or JavaScript     |
 | `vue`  | Vue projects                       |
 
-Use the key that matches your stack.
+Use the key that matches your stack. The examples below use `base` so the
+snippets work as-is; replace `base` with another key when needed.
 
 ## 1. Install
 
