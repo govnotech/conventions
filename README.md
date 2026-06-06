@@ -55,9 +55,9 @@ Presets are addressed by a key on the package subpath,
 | Key    | For                                |
 | ------ | ---------------------------------- |
 | `base` | Plain TypeScript or JavaScript     |
-| `vue`  | Vue (adds Vue, Vitest, Playwright) |
+| `vue`  | Vue projects                       |
 
-The examples below use `base` — swap in the key that matches your stack.
+Use the key that matches your stack.
 
 ## 1. Install
 
