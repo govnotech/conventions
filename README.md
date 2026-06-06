@@ -12,6 +12,7 @@ projects. Built on top of [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html
 - [3. Configure the Oxfmt](#3-configure-the-oxfmt)
 - [4. Configure IDEs](#4-configure-ides)
   - [VS Code](#vs-code)
+  - [JetBrains](#jetbrains)
 - [5. Add npm scripts](#5-add-npm-scripts)
 - [6. Set up CI (optional)](#6-set-up-ci-optional)
   - [GitHub Actions](#github-actions)
@@ -89,6 +90,7 @@ Editor extensions run `oxfmt --lsp` from the project’s local install
 Add configurations only for IDEs your team uses:
 
 - [VS Code](#vs-code)
+- [JetBrains](#jetbrains)
 
 ### VS Code
 
@@ -116,6 +118,15 @@ Set up actions on save in `.vscode/settings.json`:
   }
 }
 ```
+
+### JetBrains
+
+For IntelliJ IDEA, WebStorm, and other JetBrains IDEs. Install the
+[Oxc plugin](https://plugins.jetbrains.com/plugin/27061-oxc):
+`Settings > Plugins > Marketplace`, search for “Oxc”.
+
+The plugin hooks into the built-in `Code > Reformat Code` actions and can
+format on save — enable it in the plugin settings.
 
 ## 5. Add npm scripts
 
