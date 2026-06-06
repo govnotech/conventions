@@ -83,11 +83,19 @@ export default {
 
 ## 4. Configure IDEs
 
+Editor extensions run `oxfmt --lsp` from the project’s local install
+([step 1](#1-install)) and pick up `oxfmt.config.ts` automatically.
+
 Add configurations only for IDEs your team uses:
 
 - [VS Code](#vs-code)
 
 ### VS Code
+
+Also applies to Cursor and other VS Code–based editors — the
+[Oxc extension](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode)
+is published to both the Visual Studio Marketplace and
+[Open VSX](https://open-vsx.org/extension/oxc/oxc-vscode).
 
 Recommend the extensions in `.vscode/extensions.json`:
 
