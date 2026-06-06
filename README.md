@@ -235,7 +235,8 @@ You can now run:
 ## 6. Set up CI (optional)
 
 Examples only — the real setup depends on your platform and existing pipeline.
-Both install dependencies once, then run each `check:*` as a parallel job.
+Both examples cache dependencies, then run each `check:*` script as a separate
+job.
 
 - [GitHub Actions](#github-actions)
 - [GitLab CI](#gitlab-ci)
