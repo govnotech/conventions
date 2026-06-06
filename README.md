@@ -29,8 +29,8 @@ pnpm exec oxfmt --check
 - [Requirements](#requirements)
 - [Presets](#presets)
 - [1. Install](#1-install)
-- [2. Configure the EditorConfig](#2-configure-the-editorconfig)
-- [3. Configure the Oxfmt](#3-configure-the-oxfmt)
+- [2. Configure EditorConfig](#2-configure-editorconfig)
+- [3. Configure Oxfmt](#3-configure-oxfmt)
 - [4. Configure IDEs](#4-configure-ides)
   - [VS Code](#vs-code)
   - [JetBrains](#jetbrains)
@@ -68,7 +68,7 @@ pnpm add -D @govnotech/conventions oxfmt
 
 `oxfmt` is the formatter; `@govnotech/conventions` provides the preset it reads.
 
-## 2. Configure the EditorConfig
+## 2. Configure EditorConfig
 
 Create `.editorconfig` at the repo root:
 
@@ -88,7 +88,7 @@ max_line_length = 80
 # trim_trailing_whitespace = true
 ```
 
-## 3. Configure the Oxfmt
+## 3. Configure Oxfmt
 
 Create `oxfmt.config.ts` at the repo root. Re-export the preset as-is:
 
