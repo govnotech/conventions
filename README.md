@@ -14,6 +14,7 @@ projects. Built on top of [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html
   - [VS Code](#vs-code)
   - [JetBrains](#jetbrains)
   - [Zed](#zed)
+  - [Neovim](#neovim)
 - [5. Add npm scripts](#5-add-npm-scripts)
 - [6. Set up CI (optional)](#6-set-up-ci-optional)
   - [GitHub Actions](#github-actions)
@@ -93,6 +94,7 @@ Add configurations only for IDEs your team uses:
 - [VS Code](#vs-code)
 - [JetBrains](#jetbrains)
 - [Zed](#zed)
+- [Neovim](#neovim)
 
 ### VS Code
 
@@ -151,6 +153,19 @@ auto-install via `.zed/settings.json`. There, set `oxfmt` as the formatter:
 Repeat the `languages` entry for each language Oxfmt should format —
 `JavaScript`, `TSX`, `JSON`, `Vue.js`, etc. See the
 [full example](https://github.com/oxc-project/oxc-zed/tree/main/examples/oxfmt).
+
+### Neovim
+
+Via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), with `oxfmt`
+on `$PATH` (e.g. `npm i -g oxfmt`):
+
+```lua
+vim.lsp.enable('oxfmt')
+```
+
+[conform.nvim](https://github.com/stevearc/conform.nvim) and
+[coc.nvim](https://github.com/neoclide/coc.nvim) (`:CocInstall coc-oxc`) work
+too.
 
 ## 5. Add npm scripts
 
