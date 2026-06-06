@@ -45,7 +45,7 @@ pnpm exec oxfmt --check
 ## Requirements
 
 - Node `>=22.12.0`
-- pnpm (in examples, but any package manager works)
+- pnpm for the examples; use your project’s package manager if different
 
 ## Presets
 
