@@ -13,6 +13,7 @@ projects. Built on top of [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html
 - [4. Configure IDEs](#4-configure-ides)
   - [VS Code](#vs-code)
   - [JetBrains](#jetbrains)
+  - [Zed](#zed)
 - [5. Add npm scripts](#5-add-npm-scripts)
 - [6. Set up CI (optional)](#6-set-up-ci-optional)
   - [GitHub Actions](#github-actions)
@@ -91,6 +92,7 @@ Add configurations only for IDEs your team uses:
 
 - [VS Code](#vs-code)
 - [JetBrains](#jetbrains)
+- [Zed](#zed)
 
 ### VS Code
 
@@ -127,6 +129,28 @@ For IntelliJ IDEA, WebStorm, and other JetBrains IDEs. Install the
 
 The plugin hooks into the built-in `Code > Reformat Code` actions and can
 format on save — enable it in the plugin settings.
+
+### Zed
+
+Install the [Oxc extension](https://zed.dev/extensions/oxc), or let it
+auto-install via `.zed/settings.json`. There, set `oxfmt` as the formatter:
+
+```json
+{
+  "auto_install_extensions": { "oxc": true },
+  "languages": {
+    "TypeScript": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "format_on_save": "on",
+      "prettier": { "allowed": false }
+    }
+  }
+}
+```
+
+Repeat the `languages` entry for each language Oxfmt should format —
+`JavaScript`, `TSX`, `JSON`, `Vue.js`, etc. See the
+[full example](https://github.com/oxc-project/oxc-zed/tree/main/examples/oxfmt).
 
 ## 5. Add npm scripts
 
