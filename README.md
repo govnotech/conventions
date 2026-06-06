@@ -109,7 +109,7 @@ export default {
 
 ## 4. Configure IDEs
 
-Add configurations only for IDEs your team uses:
+Add only the editor configurations your team uses:
 
 - [VS Code](#vs-code)
 - [JetBrains](#jetbrains)
