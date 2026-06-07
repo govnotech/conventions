@@ -23,8 +23,8 @@ Verify setup:
 pnpm exec oxfmt --check
 ```
 
-If the check passes, continue with the full setup below to make formatting
-consistent in editors, scripts, and CI.
+The check may report formatting issues in an existing project. Continue with
+the full setup below to make formatting consistent in editors, scripts, and CI.
 
 ## Table of Contents
 
