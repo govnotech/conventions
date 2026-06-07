@@ -124,6 +124,9 @@ pnpm exec oxfmt --check
 
 Add only the editor configurations your team uses:
 
+If formatting behaves differently on one machine, check that editor’s user-level
+formatter settings do not override the project setup.
+
 - [VS Code](#vs-code)
 - [JetBrains](#jetbrains)
 - [Zed](#zed)
