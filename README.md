@@ -54,10 +54,10 @@ consistent in editors, scripts, and CI.
 Presets are addressed by a key on the package subpath,
 `@govnotech/conventions/<key>`:
 
-| Key    | For                                |
-| ------ | ---------------------------------- |
-| `base` | Plain TypeScript or JavaScript     |
-| `vue`  | Vue projects                       |
+| Key    | For                            |
+| ------ | ------------------------------ |
+| `base` | Plain TypeScript or JavaScript |
+| `vue`  | Vue projects                   |
 
 Use the key that matches your stack. The examples below use `base` so the
 snippets work as-is; replace `base` with another key when needed.
@@ -73,7 +73,9 @@ pnpm add -D @govnotech/conventions oxfmt
 
 ## 2. Configure EditorConfig
 
-Create `.editorconfig` at the repo root:
+Create `.editorconfig` at the repo root and copy this baseline as-is. The
+commented `trim_trailing_whitespace` line is intentional because formatter and
+editor behavior differ here.
 
 ```ini
 root = true
@@ -135,11 +137,13 @@ Also applies to Cursor and other VS Code–based editors — the
 is published to both the Visual Studio Marketplace and
 [Open VSX](https://open-vsx.org/extension/oxc/oxc-vscode).
 
-Recommend the extensions in `.vscode/extensions.json`:
+Recommend the extensions and discourage Prettier as the project formatter in
+`.vscode/extensions.json`:
 
 ```json
 {
-  "recommendations": ["EditorConfig.EditorConfig", "oxc.oxc-vscode"]
+  "recommendations": ["EditorConfig.EditorConfig", "oxc.oxc-vscode"],
+  "unwantedRecommendations": ["esbenp.prettier-vscode"]
 }
 ```
 
