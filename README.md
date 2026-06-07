@@ -159,6 +159,30 @@ Set up actions on save in `.vscode/settings.json`:
 }
 ```
 
+Check your VS Code User Settings for language-specific formatter overrides such
+as `[typescript]`, `[json]`, or `[vue]`. These user-level overrides can take
+precedence over the project-level `editor.defaultFormatter`, so formatting may
+still run through another extension on some machines.
+
+For large teams, prefer making the project settings explicit for the languages
+your project formats:
+
+```jsonc
+{
+  // ...the settings from the previous example
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  // ...other languages your project formats
+}
+```
+
 ### JetBrains
 
 For IntelliJ IDEA, WebStorm, and other JetBrains IDEs. Install the
