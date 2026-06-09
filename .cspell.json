@@ -1,5 +1,13 @@
 {
   "version": "0.2",
   "files": ["*.config.ts", "*.json", "*.md", "LICENSE", "src/**"],
-  "words": ["esbenp", "govnotech", "lspconfig", "nvim", "oxlint", "revenko", "vova"]
+  "words": [
+    "esbenp",
+    "govnotech",
+    "lspconfig",
+    "nvim",
+    "oxlint",
+    "revenko",
+    "vova"
+  ]
 }
