@@ -2,6 +2,14 @@
   "name": "@govnotech/conventions",
   "version": "0.0.0",
   "description": "Shared code-style conventions for TypeScript projects.",
+  "keywords": [
+    "conventions",
+    "eslint",
+    "formatter",
+    "oxfmt",
+    "oxlint",
+    "typescript"
+  ],
   "homepage": "https://github.com/govnotech/conventions#readme",
   "license": "MIT",
   "author": "Vova Revenko <vova@revenko.org>",
