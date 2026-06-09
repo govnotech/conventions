@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "description": "Shared code-style conventions for TypeScript projects.",
   "keywords": [
+    "code-style",
     "conventions",
-    "eslint",
     "formatter",
     "oxfmt",
-    "oxlint",
     "typescript"
   ],
   "homepage": "https://github.com/govnotech/conventions#readme",
@@ -65,33 +64,7 @@
     "typescript-eslint": "^8.59.3"
   },
   "peerDependencies": {
-    "@eslint/js": "^10.0.0",
-    "@vitest/eslint-plugin": "^1.6.0",
-    "@vue/eslint-config-typescript": "^14.7.0",
-    "eslint": "^10.0.0",
-    "eslint-config-prettier": "^10.0.0",
-    "eslint-plugin-oxlint": "^1.60.0",
-    "eslint-plugin-playwright": "^2.10.0",
-    "eslint-plugin-vue": "^10.0.0",
-    "jiti": "^2.0.0",
-    "oxfmt": "^0.45.0",
-    "oxlint": "^1.60.0",
-    "typescript": ">=5.0.0",
-    "typescript-eslint": "^8.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@vitest/eslint-plugin": {
-      "optional": true
-    },
-    "@vue/eslint-config-typescript": {
-      "optional": true
-    },
-    "eslint-plugin-playwright": {
-      "optional": true
-    },
-    "eslint-plugin-vue": {
-      "optional": true
-    }
+    "oxfmt": "^0.45.0"
   },
   "engines": {
     "node": ">=22.12.0"
