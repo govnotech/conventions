@@ -1,6 +1,12 @@
-import { defineConfig } from 'oxfmt'
+import { defineConfig, type OxfmtConfig } from 'oxfmt'
 
-export default defineConfig({
+/**
+ * Keep the exported preset typed as `OxfmtConfig`
+ *
+ * Without the generic, declaration emit may widen literal options and break
+ * downstream `defineConfig({ ...oxfmt })` overrides.
+ */
+export default defineConfig<OxfmtConfig>({
   arrowParens: 'avoid',
   printWidth: 80,
   quoteProps: 'consistent',
