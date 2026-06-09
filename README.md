@@ -115,14 +115,6 @@ export default defineConfig({
 })
 ```
 
-### Verify setup
-
-Run the formatter check before adding scripts, IDEs, or CI:
-
-```bash
-pnpm exec oxfmt --check
-```
-
 ## 4. Add npm scripts
 
 Install `npm-run-all2` to run multiple scripts in parallel or series:
@@ -276,10 +268,11 @@ Before adding CI, make the formatting pass explicit:
 1. Commit the setup changes from steps 1-5: dependencies, config files, editor
    settings, and npm scripts.
 2. Run `pnpm fix:format`.
-3. Review the diff and commit only the resulting formatting changes.
+3. Run `pnpm check:format` to confirm the formatting pass is clean.
+4. Review the diff and commit only the resulting formatting changes.
 
-After that, `pnpm check:format` should pass and CI can enforce formatting
-without introducing a knowingly failing check.
+After that, CI can enforce formatting without introducing a knowingly failing
+check.
 
 ## 7. Set up CI (optional)
 
