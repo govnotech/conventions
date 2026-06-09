@@ -30,6 +30,8 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
+    "prepack": "pnpm build",
+    "release:check": "pnpm check && pnpm build && npm pack --dry-run",
     "lint:ox": "oxlint . --max-warnings 0",
     "lint:es": "eslint . --max-warnings 0 --cache",
     "check": "run-p --continue-on-error check:*",
