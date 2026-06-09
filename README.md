@@ -33,13 +33,13 @@ the full setup below to make formatting consistent in editors, scripts, and CI.
 - [1. Install](#1-install)
 - [2. Configure EditorConfig](#2-configure-editorconfig)
 - [3. Configure Oxfmt](#3-configure-oxfmt)
-- [4. Configure IDEs](#4-configure-ides)
+- [4. Add npm scripts](#4-add-npm-scripts)
+- [5. Configure IDEs](#5-configure-ides)
   - [VS Code](#vs-code)
   - [JetBrains](#jetbrains)
   - [Zed](#zed)
   - [Neovim](#neovim)
   - [Other editors](#other-editors)
-- [5. Add npm scripts](#5-add-npm-scripts)
 - [6. Format the project](#6-format-the-project)
 - [7. Set up CI (optional)](#7-set-up-ci-optional)
   - [GitHub Actions](#github-actions)
@@ -106,22 +106,52 @@ Or spread it to override specific options:
 
 ```ts
 import { oxfmt } from '@govnotech/conventions/base'
+import { defineConfig } from 'oxfmt'
 
-export default {
+export default defineConfig({
   ...oxfmt,
+
   // ...your overrides
-}
+})
 ```
 
 ### Verify setup
 
-Run the formatter check before configuring IDEs or CI:
+Run the formatter check before adding scripts, IDEs, or CI:
 
 ```bash
 pnpm exec oxfmt --check
 ```
 
-## 4. Configure IDEs
+## 4. Add npm scripts
+
+Install `npm-run-all2` to run multiple scripts in parallel or series:
+
+```bash
+pnpm add -D npm-run-all2
+```
+
+Then add these scripts to `package.json`:
+
+```json
+{
+  "scripts": {
+    "check": "run-p --continue-on-error check:*",
+    "check:format": "oxfmt --check",
+    "fix": "run-s fix:*",
+    "fix:format": "oxfmt --write"
+  }
+}
+```
+
+You can now run:
+
+- `pnpm check` to run all checks in parallel
+- `pnpm check:format` to check formatting only
+- `pnpm fix` to run all fixes in series
+- `pnpm fix:format` to fix formatting only
+
+## 5. Configure IDEs
 
 Add only the editor configurations your team uses:
 
@@ -175,13 +205,13 @@ your project formats:
 {
   // ...the settings from the previous example
   "[typescript]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
+    "editor.defaultFormatter": "oxc.oxc-vscode",
   },
   "[json]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
+    "editor.defaultFormatter": "oxc.oxc-vscode",
   },
   "[vue]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
+    "editor.defaultFormatter": "oxc.oxc-vscode",
   },
   // ...other languages your project formats
 }
@@ -238,34 +268,6 @@ files through the local CLI:
 ```bash
 pnpm exec oxfmt --stdin-filepath src/foo.ts < src/foo.ts
 ```
-
-## 5. Add npm scripts
-
-Install `npm-run-all2` to run multiple scripts in parallel or series:
-
-```bash
-pnpm add -D npm-run-all2
-```
-
-Then add these scripts to `package.json`:
-
-```json
-{
-  "scripts": {
-    "check": "run-p --continue-on-error check:*",
-    "check:format": "oxfmt --check",
-    "fix": "run-s fix:*",
-    "fix:format": "oxfmt --write"
-  }
-}
-```
-
-You can now run:
-
-- `pnpm check` to run all checks in parallel
-- `pnpm check:format` to check formatting only
-- `pnpm fix` to run all fixes in series
-- `pnpm fix:format` to fix formatting only
 
 ## 6. Format the project
 
