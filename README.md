@@ -40,7 +40,8 @@ the full setup below to make formatting consistent in editors, scripts, and CI.
   - [Neovim](#neovim)
   - [Other editors](#other-editors)
 - [5. Add npm scripts](#5-add-npm-scripts)
-- [6. Set up CI (optional)](#6-set-up-ci-optional)
+- [6. Format the project](#6-format-the-project)
+- [7. Set up CI (optional)](#7-set-up-ci-optional)
   - [GitHub Actions](#github-actions)
   - [GitLab CI](#gitlab-ci)
 
@@ -266,7 +267,19 @@ You can now run:
 - `pnpm fix` to run all fixes in series
 - `pnpm fix:format` to fix formatting only
 
-## 6. Set up CI (optional)
+## 6. Format the project
+
+Before adding CI, make the formatting pass explicit:
+
+1. Commit the setup changes from steps 1-5: dependencies, config files, editor
+   settings, and npm scripts.
+2. Run `pnpm fix:format`.
+3. Review the diff and commit only the resulting formatting changes.
+
+After that, `pnpm check:format` should pass and CI can enforce formatting
+without introducing a knowingly failing check.
+
+## 7. Set up CI (optional)
 
 Examples only — the real setup depends on your platform and existing pipeline.
 Both examples cache dependencies, then run each `check:*` script as a separate
