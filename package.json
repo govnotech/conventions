@@ -59,14 +59,14 @@
     "eslint-plugin-vue": "^10.9.1",
     "jiti": "^2.7.0",
     "npm-run-all2": "^8.0.4",
-    "oxfmt": "^0.50.0",
+    "oxfmt": "^0.54.0",
     "oxlint": "^1.65.0",
     "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.3"
   },
   "peerDependencies": {
-    "oxfmt": "^0.45.0"
+    "oxfmt": ">=0.54.0 <1.0.0"
   },
   "engines": {
     "node": ">=22.12.0"
