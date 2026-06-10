@@ -9,6 +9,7 @@ be used across all your projects.
 
 - [Requirements](#requirements)
 - [Presets](#presets)
+- [Commit plan](#commit-plan)
 - [1. Install](#1-install)
 - [2. Configure EditorConfig](#2-configure-editorconfig)
 - [3. Configure Oxfmt](#3-configure-oxfmt)
@@ -41,6 +42,17 @@ Presets are addressed by a key on the package subpath,
 
 Use the key that matches your stack. The examples below use `base` so the
 snippets work as-is; replace `base` with another key when needed.
+
+## Commit plan
+
+When adopting the preset in an existing project, each commit should be atomic
+and leave the project in a valid state. We recommend this split:
+
+1. Steps 1-3: setup commit.
+2. Step 4: formatting commit.
+3. Everything else: follow-up commits, when needed.
+
+This avoids adding checks before the formatting pass is clean.
 
 ## 1. Install
 
@@ -96,12 +108,12 @@ export default defineConfig({
 
 ## 4. Format the project
 
-Before changing npm scripts or CI, make the formatting pass explicit:
+Run the formatter after the setup commit and before changing npm scripts or CI:
 
-1. Commit the setup changes from steps 1-3: dependencies and config files.
-2. Run `pnpm exec oxfmt --write`.
-3. Run `pnpm exec oxfmt --check` to confirm the formatting pass is clean.
-4. Review the diff and commit only the resulting formatting changes.
+```bash
+pnpm exec oxfmt --write
+pnpm exec oxfmt --check
+```
 
 After that, scripts and CI can enforce formatting without introducing a
 knowingly failing check.
