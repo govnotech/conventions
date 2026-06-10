@@ -138,8 +138,7 @@ You can now run:
 
 Add only the editor configurations your team uses:
 
-If formatting behaves differently on one machine, check that editor’s user-level
-formatter settings do not override the project setup.
+User-level editor settings can still override project setup.
 
 - [VS Code](#vs-code)
 - [JetBrains](#jetbrains)
@@ -176,13 +175,17 @@ Set up actions on save in `.vscode/settings.json`:
 }
 ```
 
-Check your VS Code User Settings for language-specific formatter overrides such
-as `[typescript]`, `[json]`, or `[vue]`. These user-level overrides can take
-precedence over the project-level `editor.defaultFormatter`, so formatting may
-still run through another extension on some machines.
+Prefer removing project-level language-specific `editor.defaultFormatter`
+overrides such as `[typescript]`, `[json]`, or `[vue]` when they only repeat or
+conflict with the shared formatter. A single project-level
+`editor.defaultFormatter` is easier to maintain.
 
-For large teams, prefer making the project settings explicit for the languages
-your project formats:
+If formatting behaves differently on one machine, check that developer’s VS Code
+User Settings for language-specific formatter overrides. User-level overrides
+can take precedence over project settings.
+
+For large or open-source teams, prefer making the project settings explicit for
+the languages your project formats:
 
 ```jsonc
 {
