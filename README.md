@@ -68,7 +68,7 @@ indent_style = space
 insert_final_newline = true
 max_line_length = 80
 
-# Oxfmt and Prettier won’t trim trailing whitespace inside template strings,
+# Oxfmt and Prettier won't trim trailing whitespace inside template strings,
 # but your editor might: https://prettier.io/docs/en/configuration#editorconfig
 # trim_trailing_whitespace = true
 ```
