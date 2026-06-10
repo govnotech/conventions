@@ -34,13 +34,13 @@ the full setup below to make formatting consistent in editors, scripts, and CI.
 - [2. Configure EditorConfig](#2-configure-editorconfig)
 - [3. Configure Oxfmt](#3-configure-oxfmt)
 - [4. Add npm scripts](#4-add-npm-scripts)
-- [5. Configure IDEs](#5-configure-ides)
+- [5. Format the project](#5-format-the-project)
+- [6. Configure IDEs](#6-configure-ides)
   - [VS Code](#vs-code)
   - [JetBrains](#jetbrains)
   - [Zed](#zed)
   - [Neovim](#neovim)
   - [Other editors](#other-editors)
-- [6. Format the project](#6-format-the-project)
 - [7. Set up CI (optional)](#7-set-up-ci-optional)
   - [GitHub Actions](#github-actions)
   - [GitLab CI](#gitlab-ci)
@@ -143,7 +143,20 @@ You can now run:
 - `pnpm fix` to run all fixes in series
 - `pnpm fix:format` to fix formatting only
 
-## 5. Configure IDEs
+## 5. Format the project
+
+Before adding CI, make the formatting pass explicit:
+
+1. Commit the setup changes from steps 1-4: dependencies, config files, and npm
+   scripts.
+2. Run `pnpm fix:format`.
+3. Run `pnpm check:format` to confirm the formatting pass is clean.
+4. Review the diff and commit only the resulting formatting changes.
+
+After that, CI can enforce formatting without introducing a knowingly failing
+check.
+
+## 6. Configure IDEs
 
 Add only the editor configurations your team uses:
 
@@ -260,19 +273,6 @@ files through the local CLI:
 ```bash
 pnpm exec oxfmt --stdin-filepath src/foo.ts < src/foo.ts
 ```
-
-## 6. Format the project
-
-Before adding CI, make the formatting pass explicit:
-
-1. Commit the setup changes from steps 1-5: dependencies, config files, editor
-   settings, and npm scripts.
-2. Run `pnpm fix:format`.
-3. Run `pnpm check:format` to confirm the formatting pass is clean.
-4. Review the diff and commit only the resulting formatting changes.
-
-After that, CI can enforce formatting without introducing a knowingly failing
-check.
 
 ## 7. Set up CI (optional)
 
