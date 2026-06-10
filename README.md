@@ -12,8 +12,8 @@ be used across all your projects.
 - [1. Install](#1-install)
 - [2. Configure EditorConfig](#2-configure-editorconfig)
 - [3. Configure Oxfmt](#3-configure-oxfmt)
-- [4. Add npm scripts](#4-add-npm-scripts)
-- [5. Format the project](#5-format-the-project)
+- [4. Format the project](#4-format-the-project)
+- [5. Add npm scripts](#5-add-npm-scripts)
 - [6. Configure IDEs](#6-configure-ides)
   - [VS Code](#vs-code)
   - [JetBrains](#jetbrains)
@@ -94,7 +94,19 @@ export default defineConfig({
 })
 ```
 
-## 4. Add npm scripts
+## 4. Format the project
+
+Before changing npm scripts or CI, make the formatting pass explicit:
+
+1. Commit the setup changes from steps 1-3: dependencies and config files.
+2. Run `pnpm exec oxfmt --write`.
+3. Run `pnpm exec oxfmt --check` to confirm the formatting pass is clean.
+4. Review the diff and commit only the resulting formatting changes.
+
+After that, scripts and CI can enforce formatting without introducing a
+knowingly failing check.
+
+## 5. Add npm scripts
 
 Install `npm-run-all2` to run multiple scripts in parallel or series:
 
@@ -121,19 +133,6 @@ You can now run:
 - `pnpm check:format` to check formatting only
 - `pnpm fix` to run all fixes in series
 - `pnpm fix:format` to fix formatting only
-
-## 5. Format the project
-
-Before adding CI, make the formatting pass explicit:
-
-1. Commit the setup changes from steps 1-4: dependencies, config files, and npm
-   scripts.
-2. Run `pnpm fix:format`.
-3. Run `pnpm check:format` to confirm the formatting pass is clean.
-4. Review the diff and commit only the resulting formatting changes.
-
-After that, CI can enforce formatting without introducing a knowingly failing
-check.
 
 ## 6. Configure IDEs
 
