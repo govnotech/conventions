@@ -7,9 +7,10 @@ import skipFormatting from 'eslint-config-prettier/flat'
 import pluginOxlint from 'eslint-plugin-oxlint'
 import pluginPlaywright from 'eslint-plugin-playwright'
 import pluginVue from 'eslint-plugin-vue'
+import type { Config } from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
 
-export default defineConfigWithVueTs(
+const config: Config = defineConfigWithVueTs(
   {
     name: 'govnotech/vue/files-to-lint',
     files: ['**/*.{vue,ts,mts,cts,tsx}'],
@@ -34,3 +35,5 @@ export default defineConfigWithVueTs(
 
   skipFormatting,
 )
+
+export default config
