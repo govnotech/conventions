@@ -152,6 +152,10 @@ Add only the editor configurations your team uses:
 
 User-level editor settings can still override project setup.
 
+Agent note: before adding IDE-specific settings, look for clear project
+artifacts that identify the IDEs in use. If there are none, ask the user which
+IDE configs to add.
+
 - [VS Code](#vs-code)
 - [JetBrains](#jetbrains)
 - [Zed](#zed)
