@@ -59,7 +59,7 @@
     "eslint-plugin-vue": "^10.9.2",
     "jiti": "^2.7.0",
     "npm-run-all2": "^8.0.4",
-    "oxfmt": "^0.54.0",
+    "oxfmt": "^0.57.0",
     "oxlint": "^1.69.0",
     "tsdown": "^0.22.2",
     "typescript": "^6.0.3",
