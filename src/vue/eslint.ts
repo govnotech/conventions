@@ -7,8 +7,8 @@ import skipFormatting from 'eslint-config-prettier/flat'
 import pluginOxlint from 'eslint-plugin-oxlint'
 import pluginPlaywright from 'eslint-plugin-playwright'
 import pluginVue from 'eslint-plugin-vue'
-import type { Config } from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
+import type { Config } from 'typescript-eslint'
 
 const config: Config = defineConfigWithVueTs(
   {

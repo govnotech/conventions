@@ -13,4 +13,25 @@ export default defineConfig<OxfmtConfig>({
   semi: false,
   singleAttributePerLine: true,
   singleQuote: true,
+  sortImports: {
+    customGroups: [
+      {
+        groupName: '$foundation',
+        elementNamePattern: ['{~/,@/}{core,shared}', '{~/,@/}{core,shared}/**'],
+      },
+    ],
+    groups: [
+      'builtin',
+      'external',
+      '$foundation',
+      ['internal', 'subpath'],
+      'parent',
+      { newlinesBetween: false },
+      'sibling',
+      { newlinesBetween: false },
+      'index',
+      'style',
+      'unknown',
+    ],
+  },
 })
