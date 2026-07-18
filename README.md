@@ -28,6 +28,7 @@ be used across all your projects.
 ## Requirements
 
 - Node `>=22.12.0`
+- Oxfmt `>=0.59.0`
 - pnpm for the examples; use your project’s package manager if different
 
 ## Presets
@@ -87,7 +88,7 @@ max_line_length = 80
 
 ## 3. Configure Oxfmt
 
-Create `oxfmt.config.ts` at the repo root. Re-export the preset as-is:
+Create `oxfmt.config.mts` at the repo root. Re-export the preset as-is:
 
 ```ts
 export { oxfmt as default } from '@govnotech/conventions/base'
