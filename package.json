@@ -79,7 +79,7 @@
     "oxfmt": ">=0.59.0 <1.0.0"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.18.0"
   },
   "packageManager": "pnpm@10.28.2"
 }

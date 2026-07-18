@@ -27,7 +27,7 @@ be used across all your projects.
 
 ## Requirements
 
-- Node `>=22.12.0`
+- Node `>=22.18.0`
 - Oxfmt `>=0.59.0`
 - pnpm for the examples; use your project’s package manager if different
 
