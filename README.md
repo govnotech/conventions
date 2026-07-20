@@ -2,13 +2,12 @@
 
 Shared, opinionated code-style conventions for TypeScript projects.
 
-Presets are exposed from `@govnotech/conventions/<key>` so the same package can
-be used across all your projects.
+Presets are named exports of `@govnotech/conventions`, imported per tool you
+configure.
 
 ## Table of Contents
 
 - [Requirements](#requirements)
-- [Presets](#presets)
 - [Commit plan](#commit-plan)
 - [1. Install](#1-install)
 - [2. Configure EditorConfig](#2-configure-editorconfig)
@@ -30,19 +29,6 @@ be used across all your projects.
 - Node `>=22.18.0`
 - Oxfmt `>=0.59.0`
 - pnpm for the examples; use your project’s package manager if different
-
-## Presets
-
-Presets are addressed by a key on the package subpath,
-`@govnotech/conventions/<key>`:
-
-| Key    | For                            |
-| ------ | ------------------------------ |
-| `base` | Plain TypeScript or JavaScript |
-| `vue`  | Vue projects                   |
-
-Use the key that matches your stack. The examples below use `base` so the
-snippets work as-is; replace `base` with another key when needed.
 
 ## Commit plan
 
@@ -91,17 +77,17 @@ max_line_length = 80
 Create `oxfmt.config.mts` at the repo root. Re-export the preset as-is:
 
 ```ts
-export { oxfmt as default } from '@govnotech/conventions/base'
+export { oxfmtBase as default } from '@govnotech/conventions'
 ```
 
 Or spread it to override specific options:
 
 ```ts
-import { oxfmt } from '@govnotech/conventions/base'
+import { oxfmtBase } from '@govnotech/conventions'
 import { defineConfig } from 'oxfmt'
 
 export default defineConfig({
-  ...oxfmt,
+  ...oxfmtBase,
 
   // ...your overrides
 })
