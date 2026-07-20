@@ -17,24 +17,10 @@
     "dist"
   ],
   "type": "module",
-  "typesVersions": {
-    "*": {
-      "base": [
-        "./dist/base/index.d.mts"
-      ],
-      "vue": [
-        "./dist/vue/index.d.mts"
-      ]
-    }
-  },
   "exports": {
-    "./base": {
-      "types": "./dist/base/index.d.mts",
-      "default": "./dist/base/index.mjs"
-    },
-    "./vue": {
-      "types": "./dist/vue/index.d.mts",
-      "default": "./dist/vue/index.mjs"
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     }
   },
   "scripts": {

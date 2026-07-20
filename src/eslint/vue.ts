@@ -10,7 +10,7 @@ import pluginVue from 'eslint-plugin-vue'
 import { globalIgnores } from 'eslint/config'
 import type { Config } from 'typescript-eslint'
 
-const config: Config = defineConfigWithVueTs(
+export const eslintVue: Config = defineConfigWithVueTs(
   {
     name: 'govnotech/vue/files-to-lint',
     files: ['**/*.{vue,ts,mts,cts,tsx}'],
@@ -35,5 +35,3 @@ const config: Config = defineConfigWithVueTs(
 
   skipFormatting,
 )
-
-export default config

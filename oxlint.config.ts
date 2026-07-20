@@ -1,1 +1,1 @@
-export { default } from './src/base/oxlint.ts'
+export { oxlintBase as default } from './src/oxlint/base.ts'

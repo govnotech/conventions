@@ -4,7 +4,7 @@ import pluginOxlint from 'eslint-plugin-oxlint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import tseslint from 'typescript-eslint'
 
-export default defineConfig(
+export const eslintBase = defineConfig(
   {
     name: 'govnotech/base/files-to-lint',
     files: ['**/*.{ts,mts,cts,tsx,js,mjs,cjs}'],

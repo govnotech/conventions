@@ -1,1 +1,1 @@
-export { default } from './src/base/eslint.ts'
+export { eslintBase as default } from './src/eslint/base.ts'
