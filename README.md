@@ -164,8 +164,15 @@ import {
   eslintPluginSonarjs, // bug detection
   eslintPluginJsdoc, // JSDoc hygiene
 } from '@govnotech/conventions/eslint'
+import { globalIgnores } from 'eslint/config'
 
 export default defineConfigEslintBase(
+  globalIgnores([
+    '**/__generated__/**',
+    'storybook-static/**',
+    // ... whatever you want to ignore
+  ]),
+
   // An add-on’s `.config` is one flat config: pass it directly, or spread it
   // with `files` to scope it.
   {
