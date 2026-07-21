@@ -61,7 +61,7 @@
     "check:spelling-unused": "cspell-check-unused-words",
     "check:types": "tsc --noEmit",
     "fix": "run-s fix:*",
-    "fix:code": "run-s \"lint:es --fix\" \"lint:ox --fix\"",
+    "fix:code": "run-s \"lint:ox --fix\" \"lint:es --fix\"",
     "fix:format": "oxfmt --write",
     "fix:spelling-unused": "cspell-check-unused-words --fix"
   },

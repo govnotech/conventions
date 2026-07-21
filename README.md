@@ -239,7 +239,7 @@ Then add these scripts to `package.json`:
     "check:code": "run-p --continue-on-error lint:*",
     "check:format": "oxfmt --check",
     "fix": "run-s fix:*",
-    "fix:code": "run-s \"lint:es --fix\" \"lint:ox --fix\"",
+    "fix:code": "run-s \"lint:ox --fix\" \"lint:es --fix\"",
     "fix:format": "oxfmt --write"
   }
 }
