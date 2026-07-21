@@ -1,6 +1,6 @@
 {
   "name": "@govnotech/conventions",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Shared code-style conventions for TypeScript projects.",
   "keywords": [
     "code-style",
