@@ -8,7 +8,7 @@ import { globalIgnores } from 'eslint/config'
 import type { Config, ConfigWithExtends } from 'typescript-eslint'
 
 import { oxlintQuasar } from '../oxlint/quasar.ts'
-import { oxlintDisables } from './shared.ts'
+import { IGNORES, oxlintDisables } from './shared.ts'
 
 /**
  * Quasar ESLint preset — the Vue preset's rule surface with Quasar's generated
@@ -23,8 +23,7 @@ export const defineConfigEslintQuasar = (
     { name: 'govnotech/quasar/files', files: ['**/*.{vue,ts,mts,cts,tsx}'] },
 
     globalIgnores([
-      '**/node_modules/**',
-      '**/dist/**',
+      ...IGNORES,
       '.quasar/**',
       'src-capacitor/**',
       'src-cordova/**',
