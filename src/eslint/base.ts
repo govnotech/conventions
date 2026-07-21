@@ -19,7 +19,7 @@ import { IGNORES, oxlintDisables } from './shared.ts'
  * real Oxlint preset, so it can never drift. Both disable layers stay last.
  *
  * Pass extra flat configs (plugin add-ons, per-file overrides) as arguments;
- * they slot in before the disable layers
+ * they slot in before the disable layers. See ADR-0002
  */
 export const defineConfigEslintBase = (
   ...userConfigs: ConfigWithExtends[]

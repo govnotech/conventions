@@ -10,7 +10,8 @@ import { mergeOxlintConfig, type OxlintAddon } from './merge.ts'
  * overwrites Oxlint's defaults, so every wanted plugin is listed explicitly.
  *
  * Kept as plain data (`satisfies`, not `defineConfig`) so importing a preset
- * never pulls in Oxlint's runtime — the `oxlint` entry stays dependency-free
+ * never pulls in Oxlint's runtime — the `oxlint` entry stays dependency-free.
+ * See ADR-0004
  */
 export const oxlintBase = {
   plugins: ['eslint', 'typescript', 'unicorn', 'oxc', 'import', 'promise'],
