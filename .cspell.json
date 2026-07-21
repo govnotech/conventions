@@ -2,12 +2,15 @@
   "version": "0.2",
   "files": ["*.config.*", "*.json", "*.md", "LICENSE", "src/**"],
   "words": [
+    "darraghor",
     "esbenp",
     "govnotech",
     "lspconfig",
     "nvim",
     "oxlint",
     "revenko",
-    "vova"
+    "sonarjs",
+    "vova",
+    "vuejs"
   ]
 }

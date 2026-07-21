@@ -1,37 +1,47 @@
-import pluginVitest from '@vitest/eslint-plugin'
 import {
   defineConfigWithVueTs,
   vueTsConfigs,
 } from '@vue/eslint-config-typescript'
 import skipFormatting from 'eslint-config-prettier/flat'
-import pluginOxlint from 'eslint-plugin-oxlint'
-import pluginPlaywright from 'eslint-plugin-playwright'
 import pluginVue from 'eslint-plugin-vue'
 import { globalIgnores } from 'eslint/config'
-import type { Config } from 'typescript-eslint'
+import type { Config, ConfigWithExtends } from 'typescript-eslint'
 
-export const eslintVue: Config = defineConfigWithVueTs(
-  {
-    name: 'govnotech/vue/files-to-lint',
-    files: ['**/*.{vue,ts,mts,cts,tsx}'],
-  },
+import { oxlintVue } from '../oxlint/vue.ts'
+import { IGNORES, oxlintDisables } from './shared.ts'
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+/**
+ * Vue ESLint preset — the strict Vue + type-aware layer for a Vue 3 app.
+ *
+ * Uses `eslint-plugin-vue`'s `flat/recommended` (attribute ordering, casing,
+ * self-closing — stricter than `essential`) and `vueTsConfigs.strictTypeChecked`.
+ * The `defineConfigWithVueTs` wrapper is required: it orders the Vue parser and
+ * the TS configs correctly, which a flat array cannot express. As with the base
+ * preset, the Oxlint-derived disable layer and `skipFormatting` stay last.
+ *
+ * Type-aware linting needs a tsconfig that covers the linted files; if
+ * `strictTypeChecked` is too loud on untyped edges, drop to
+ * `vueTsConfigs.recommended` in a local override
+ */
+export const defineConfigEslintVue = (
+  ...userConfigs: ConfigWithExtends[]
+): Config =>
+  defineConfigWithVueTs(
+    { name: 'govnotech/vue/files', files: ['**/*.{vue,ts,mts,cts,tsx}'] },
 
-  ...pluginVue.configs['flat/essential'],
-  vueTsConfigs.recommended,
+    globalIgnores([...IGNORES, '**/dist-ssr/**']),
 
-  {
-    ...pluginPlaywright.configs['flat/recommended'],
-    files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
-  },
+    ...pluginVue.configs['flat/recommended'],
+    vueTsConfigs.strictTypeChecked,
+    vueTsConfigs.stylisticTypeChecked,
 
-  {
-    ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
-  },
+    {
+      name: 'govnotech/vue/language-options',
+      languageOptions: { parserOptions: { projectService: true } },
+    },
 
-  ...pluginOxlint.configs['flat/recommended'],
+    ...userConfigs,
 
-  skipFormatting,
-)
+    ...oxlintDisables(oxlintVue),
+    skipFormatting,
+  )

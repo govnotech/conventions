@@ -5,8 +5,11 @@
   "keywords": [
     "code-style",
     "conventions",
+    "eslint",
     "formatter",
+    "linter",
     "oxfmt",
+    "oxlint",
     "typescript"
   ],
   "homepage": "https://github.com/govnotech/conventions#readme",
@@ -17,10 +20,31 @@
     "dist"
   ],
   "type": "module",
+  "typesVersions": {
+    "*": {
+      "oxfmt": [
+        "./dist/oxfmt.d.mts"
+      ],
+      "oxlint": [
+        "./dist/oxlint.d.mts"
+      ],
+      "eslint": [
+        "./dist/eslint.d.mts"
+      ]
+    }
+  },
   "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
+    "./oxfmt": {
+      "types": "./dist/oxfmt.d.mts",
+      "default": "./dist/oxfmt.mjs"
+    },
+    "./oxlint": {
+      "types": "./dist/oxlint.d.mts",
+      "default": "./dist/oxlint.mjs"
+    },
+    "./eslint": {
+      "types": "./dist/eslint.d.mts",
+      "default": "./dist/eslint.mjs"
     }
   },
   "scripts": {
@@ -28,8 +52,8 @@
     "dev": "tsdown --watch",
     "prepack": "pnpm build",
     "release:check": "pnpm check && pnpm build && npm pack --dry-run",
-    "lint:ox": "oxlint . --max-warnings 0",
-    "lint:es": "eslint . --max-warnings 0 --cache",
+    "lint:ox": "oxlint --max-warnings 0",
+    "lint:es": "eslint --max-warnings 0 --cache",
     "check": "run-p --continue-on-error check:*",
     "check:code": "run-p --continue-on-error lint:*",
     "check:format": "oxfmt --check",
@@ -41,28 +65,56 @@
     "fix:format": "oxfmt --write",
     "fix:spelling-unused": "cspell-check-unused-words --fix"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@darraghor/eslint-plugin-nestjs-typed": "^7.2.8",
     "@eslint/js": "^10.0.1",
-    "@types/node": "^26.0.1",
     "@vitest/eslint-plugin": "^1.6.20",
     "@vue/eslint-config-typescript": "^14.9.0",
+    "class-validator": "^0.15.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-drizzle": "^0.2.3",
+    "eslint-plugin-jsdoc": "^63.2.0",
+    "eslint-plugin-oxlint": "^1.69.0",
+    "eslint-plugin-pinia": "^0.4.2",
+    "eslint-plugin-playwright": "^2.10.4",
+    "eslint-plugin-regexp": "^3.1.1",
+    "eslint-plugin-rxjs-x": "^1.0.2",
+    "eslint-plugin-sonarjs": "^4.2.0",
+    "eslint-plugin-vue": "^10.9.2",
+    "eslint-plugin-vuejs-accessibility": "^2.5.0",
+    "typescript-eslint": "^8.62.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
     "cspell": "^10.0.1",
     "cspell-check-unused-words": "^1.6.3",
     "eslint": "^10.6.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-oxlint": "^1.69.0",
-    "eslint-plugin-playwright": "^2.10.4",
-    "eslint-plugin-vue": "^10.9.2",
     "jiti": "^2.7.0",
     "npm-run-all2": "^8.0.4",
     "oxfmt": "^0.59.0",
     "oxlint": "^1.69.0",
     "tsdown": "^0.22.3",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.1"
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "oxfmt": ">=0.59.0 <1.0.0"
+    "eslint": ">=9.0.0",
+    "oxfmt": ">=0.59.0 <1.0.0",
+    "oxlint": ">=1.69.0 <2.0.0",
+    "typescript": ">=5.5.0"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    },
+    "oxfmt": {
+      "optional": true
+    },
+    "oxlint": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=22.18.0"
