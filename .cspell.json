@@ -3,6 +3,7 @@
   "files": ["*.config.*", "*.json", "*.md", "LICENSE", "src/**"],
   "words": [
     "darraghor",
+    "dbaeumer",
     "esbenp",
     "govnotech",
     "lspconfig",
