@@ -23,6 +23,8 @@ export const oxlintBase = {
 
   env: { builtin: true },
 
+  ignorePatterns: ['**/.claude/worktrees/'],
+
   rules: {
     // Oxfmt owns import-statement order; this only sorts names inside `{ }`.
     // Report-only (not auto-fixable), like ESLint's original

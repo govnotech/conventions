@@ -17,6 +17,7 @@
     "subpaths",
     "tsgolint",
     "vova",
-    "vuejs"
+    "vuejs",
+    "worktrees"
   ]
 }

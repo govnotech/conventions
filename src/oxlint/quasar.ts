@@ -12,6 +12,7 @@ export const oxlintQuasar: OxlintConfig = {
   ...oxlintVue,
   env: { ...oxlintVue.env, builtin: true },
   ignorePatterns: [
+    '**/.claude/worktrees/',
     '**/node_modules/',
     'dist/',
     '.quasar/',

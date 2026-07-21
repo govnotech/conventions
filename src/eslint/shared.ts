@@ -7,7 +7,12 @@ import type { OxlintConfig } from 'oxlint'
  *
  * Stack-specific ignores are added by the individual presets
  */
-export const IGNORES = ['**/coverage/**', '**/dist/**', '**/node_modules/**']
+export const IGNORES = [
+  '**/.claude/worktrees/**',
+  '**/coverage/**',
+  '**/dist/**',
+  '**/node_modules/**',
+]
 
 type BridgeConfig = Parameters<typeof pluginOxlint.buildFromOxlintConfig>[0]
 
