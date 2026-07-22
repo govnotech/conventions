@@ -107,10 +107,7 @@ If needed, you can [override Oxfmt options](#override-oxfmt-options).
 Create `oxlint.config.mts` at the repo root:
 
 ```ts
-import {
-  defineConfigOxlintBase,
-  // oxlintPluginVitest,
-} from '@govnotech/conventions/oxlint'
+import { defineConfigOxlintBase } from '@govnotech/conventions/oxlint'
 
 /**
  * Replace `defineConfigOxlintBase` if another preset matches the project:
@@ -118,8 +115,7 @@ import {
  * - `defineConfigOxlintVue`
  * - `defineConfigOxlintQuasar`
  *
- * Uncomment `oxlintPluginVitest` in the import and config below if the project
- * uses Vitest.
+ * Uncomment only the add-ons the project uses in the config below.
  */
 export default defineConfigOxlintBase(
   // oxlintPluginVitest,
