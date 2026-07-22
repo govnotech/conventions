@@ -11,9 +11,9 @@ RxJS, Regexp, SonarJS, and JSDoc.
 
 ## Prompt for a coding agent
 
-> Set up @govnotech/conventions in this project. Follow its README exactly and
-> complete every numbered step in order. Do not skip any step. Ask me whenever
-> the README requires a choice.
+```text
+Set up @govnotech/conventions in this project. Follow its README exactly and complete every numbered step in order. Do not skip any step. Ask me whenever the README requires a choice.
+```
 
 ## Table of Contents
 
@@ -61,7 +61,9 @@ RxJS, Regexp, SonarJS, and JSDoc.
 
 ## Step-by-step setup
 
-> **For coding agents:** Complete every numbered step in order. Do not skip the IDE or CI step because the repository has no corresponding configuration; follow the instruction in that step and ask the user what to configure.
+> **For coding agents:** complete every numbered step in order. Do not skip the
+> IDE or CI step because the repository has no corresponding configuration;
+> follow the instruction in that step and ask the user what to configure.
 
 ### 1. Install
 
@@ -258,7 +260,7 @@ Add every `check:*` package script to the existing CI pipeline as a separate
 job. Follow the instructions for [GitHub Actions](#github-actions) or
 [GitLab CI](#gitlab-ci) after the platform is selected.
 
-> **For coding agents:** If the repository has no CI configuration, ask the
+> **For coding agents:** if the repository has no CI configuration, ask the
 > user whether to configure GitHub Actions, GitLab CI, another platform, or no
 > CI. Apply the answer; do not silently skip this step.
 
