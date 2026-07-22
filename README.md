@@ -1,79 +1,80 @@
 # @govnotech/conventions
 
 Shared, opinionated code-style conventions for TypeScript projects — a preset
-each for the formatter ([Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)),
-the fast linter ([Oxlint](https://oxc.rs/docs/guide/usage/linter.html)), and the
-type-aware linter ([ESLint](https://eslint.org)), imported from a subpath per
-tool: `/oxfmt`, `/oxlint`, `/eslint`.
+each for the formatter [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html),
+the fast linter [Oxlint](https://oxc.rs/docs/guide/usage/linter.html), and the
+type-aware linter [ESLint](https://eslint.org).
 
-Oxlint does everything syntactic; ESLint adds only the type-aware rules Oxlint
-can't, wired so the two never double-report. Each linter has a **preset** per
-stack (`base`, `nest`, `vue`, `quasar`) — pick one — plus optional **add-ons**
-(Playwright, Vitest, Drizzle, …) you layer on. Every ESLint plugin the presets
-use is bundled — no plugin packages to install or version yourself.
+Oxlint and ESLint include presets for plain TypeScript, Nest, Vue, and Quasar.
+Optional add-ons cover Vitest, Playwright, Drizzle, Pinia, Vue accessibility,
+RxJS, Regexp, SonarJS, and JSDoc.
+
+## Prompt for a coding agent
+
+> Set up @govnotech/conventions in this project. Follow its README exactly and
+> complete every numbered step in order. Do not skip any step. Ask me whenever
+> the README requires a choice.
 
 ## Table of Contents
 
 - [Requirements](#requirements)
-- [Commit plan](#commit-plan)
-- [1. Install](#1-install)
-- [2. Configure EditorConfig](#2-configure-editorconfig)
-- [3. Configure Oxfmt](#3-configure-oxfmt)
-- [4. Configure Oxlint](#4-configure-oxlint)
-- [5. Configure ESLint](#5-configure-eslint)
-- [6. Format and lint the project](#6-format-and-lint-the-project)
-- [7. Add npm scripts](#7-add-npm-scripts)
-- [8. Configure IDEs](#8-configure-ides)
-  - [VS Code](#vs-code)
-  - [JetBrains](#jetbrains)
+- [Step-by-step setup](#step-by-step-setup)
+  - [1. Install](#1-install)
+  - [2. Configure EditorConfig](#2-configure-editorconfig)
+  - [3. Configure Oxfmt](#3-configure-oxfmt)
+  - [4. Configure Oxlint](#4-configure-oxlint)
+  - [5. Configure ESLint](#5-configure-eslint)
+  - [6. Format and lint the project](#6-format-and-lint-the-project)
+  - [7. Add package scripts](#7-add-package-scripts)
+  - [8. Configure IDE](#8-configure-ide)
+  - [9. Configure CI](#9-configure-ci)
+- [Override Oxfmt options](#override-oxfmt-options)
+- [Oxlint](#oxlint)
+  - [Ignore files in Oxlint](#ignore-files-in-oxlint)
+  - [Override Oxlint rules](#override-oxlint-rules)
+  - [Combine Oxlint configuration](#combine-oxlint-configuration)
+- [ESLint](#eslint)
+  - [Ignore files in ESLint](#ignore-files-in-eslint)
+  - [Available ESLint add-ons](#available-eslint-add-ons)
+  - [Scope an ESLint add-on to files](#scope-an-eslint-add-on-to-files)
+  - [Apply an ESLint add-on to all files](#apply-an-eslint-add-on-to-all-files)
+  - [Override ESLint rules](#override-eslint-rules)
+  - [Scope ESLint rules to files](#scope-eslint-rules-to-files)
+- [IDE](#ide)
+  - [VS Code, Cursor, and VS Code-based editors](#vs-code-cursor-and-vs-code-based-editors)
+  - [JetBrains IDEs](#jetbrains-ides)
   - [Zed](#zed)
   - [Neovim](#neovim)
   - [Other editors](#other-editors)
-- [9. Set up CI (optional)](#9-set-up-ci-optional)
+- [CI](#ci)
   - [GitHub Actions](#github-actions)
   - [GitLab CI](#gitlab-ci)
 
 ## Requirements
 
 - Node `>=22.18.0`
-- Oxfmt `>=0.59.0`
-- Oxlint `>=1.69.0`
-- ESLint `>=9`, TypeScript `>=5.5` — for the type-aware ESLint layer
-- pnpm for the examples; use your project’s package manager if different
+- TypeScript `>=5.5.0`
+- Oxfmt `>=0.59.0 <1.0.0`
+- Oxlint `>=1.69.0 <2.0.0`
+- ESLint `>=9.0.0`
+- A package manager; commands below use pnpm
 
-Adopt only the tools you want — the sections are independent. A formatter-only
-project skips steps 4 and 5 (Oxlint and ESLint).
+## Step-by-step setup
 
-## Commit plan
+> **For coding agents:** Complete every numbered step in order. Do not skip the IDE or CI step because the repository has no corresponding configuration; follow the instruction in that step and ask the user what to configure.
 
-When adopting these conventions in an existing project, each commit should be
-atomic and leave the project in a valid state. We recommend this split:
+### 1. Install
 
-1. Steps 1-5: setup commit — installs and config files. No checks run yet.
-2. Step 6: one commit per pass, in order — formatting, then Oxlint fixes, then
-   ESLint fixes. Each pass is a clean, atomic diff.
-3. Steps 7-9: follow-up commits, when needed.
-
-This avoids enabling a check before the pass it guards is clean.
-
-## 1. Install
+Install everything in one command:
 
 ```bash
 pnpm add -D @govnotech/conventions oxfmt oxlint eslint jiti
 ```
 
-- `@govnotech/conventions` bundles every ESLint plugin the presets use — you
-  don’t install those yourself.
-- `oxfmt`, `oxlint`, and `eslint` are the CLIs you run. `jiti` lets ESLint load a
-  TypeScript `eslint.config.mts`. `typescript` is assumed already present — the
-  ESLint layer is type-aware.
-- Using only one tool? Install only its CLI (e.g. `oxfmt` alone).
+### 2. Configure EditorConfig
 
-## 2. Configure EditorConfig
-
-Create `.editorconfig` at the repo root and copy this baseline as-is. The
-commented `trim_trailing_whitespace` line is intentional because formatter and
-editor behavior differ here.
+Create `.editorconfig` at the repo root and copy this baseline as-is, including
+the comment: it records a non-obvious decision that should remain explicit.
 
 ```ini
 root = true
@@ -91,143 +92,123 @@ max_line_length = 80
 # trim_trailing_whitespace = true
 ```
 
-## 3. Configure Oxfmt
+### 3. Configure Oxfmt
 
-Create `oxfmt.config.mts` at the repo root. Re-export the preset as-is:
+Create `oxfmt.config.mts` at the repo root:
 
 ```ts
 export { oxfmtBase as default } from '@govnotech/conventions/oxfmt'
 ```
 
-Or spread it to override specific options:
+If needed, you can [override Oxfmt options](#override-oxfmt-options).
 
-```ts
-import { oxfmtBase } from '@govnotech/conventions/oxfmt'
-import { defineConfig } from 'oxfmt'
+### 4. Configure Oxlint
 
-export default defineConfig({
-  ...oxfmtBase,
-
-  // ...your overrides
-})
-```
-
-## 4. Configure Oxlint
-
-Create `oxlint.config.mts` at the repo root. Keep **one** preset and only the
-add-ons your project uses:
+Create `oxlint.config.mts` at the repo root:
 
 ```ts
 import {
-  // Presets — keep ONE:
-  defineConfigOxlintBase, // plain TypeScript package / library
-  // defineConfigOxlintNest,   // NestJS backend
-  // defineConfigOxlintVue,    // Vue 3
-  // defineConfigOxlintQuasar, // Quasar
-
-  // Add-ons — keep only what you use:
-  oxlintPluginVitest, // Vitest tests
+  defineConfigOxlintBase,
+  // oxlintPluginVitest,
 } from '@govnotech/conventions/oxlint'
 
-export default defineConfigOxlintBase(oxlintPluginVitest)
-```
-
-Oxlint owns everything that needs no type information. Add-ons merge into the
-single config object, so they take no file scoping. With no add-ons, a bare
-re-export works too:
-
-```ts
-export { oxlintBase as default } from '@govnotech/conventions/oxlint'
-```
-
-## 5. Configure ESLint
-
-Create `eslint.config.mts` at the repo root. Same shape — one preset, only the
-add-ons your stack uses:
-
-```ts
-import {
-  // Presets — keep ONE:
-  defineConfigEslintBase, // plain TypeScript package / library
-  // defineConfigEslintNest,   // NestJS backend
-  // defineConfigEslintVue,    // Vue 3
-  // defineConfigEslintQuasar, // Quasar
-
-  // Add-ons — keep only what your stack uses:
-  eslintPluginPlaywright, // e2e tests
-  eslintPluginVitest, // unit tests (type-aware rules on top of Oxlint)
-  eslintPluginDrizzle, // Drizzle ORM (backend)
-  eslintPluginPinia, // Pinia stores (vue/quasar)
-  eslintPluginVueA11y, // accessibility in Vue templates
-  eslintPluginRxjs, // RxJS (nest)
-  eslintPluginRegexp, // regex correctness
-  eslintPluginSonarjs, // bug detection
-  eslintPluginJsdoc, // JSDoc hygiene
-} from '@govnotech/conventions/eslint'
-import { globalIgnores } from 'eslint/config'
-
-export default defineConfigEslintBase(
-  globalIgnores([
-    '**/__generated__/**',
-    'storybook-static/**',
-    // ... whatever you want to ignore
-  ]),
-
-  // An add-on’s `.config` is one flat config: pass it directly, or spread it
-  // with `files` to scope it.
-  {
-    ...eslintPluginPlaywright.config,
-    files: ['e2e/**/*.{test,spec}.{ts,tsx}'],
-  },
-  { ...eslintPluginVitest.config, files: ['src/**/*.{test,spec}.{ts,tsx}'] },
-  { ...eslintPluginDrizzle.config, files: ['src/**/*.ts'] },
-  { ...eslintPluginPinia.config, files: ['src/stores/**/*.ts'] },
-  { ...eslintPluginVueA11y.config, files: ['**/*.vue'] },
-  { ...eslintPluginJsdoc.config, files: ['src/**/*.ts'] },
-
-  // No scoping — apply to every file the preset lints:
-  eslintPluginRxjs.config,
-  eslintPluginRegexp.config,
-  eslintPluginSonarjs.config,
+/**
+ * Replace `defineConfigOxlintBase` if another preset matches the project:
+ * - `defineConfigOxlintNest`
+ * - `defineConfigOxlintVue`
+ * - `defineConfigOxlintQuasar`
+ *
+ * Uncomment `oxlintPluginVitest` in the import and config below if the project
+ * uses Vitest.
+ */
+export default defineConfigOxlintBase(
+  // oxlintPluginVitest,
 )
 ```
 
-The preset automatically turns off every rule the matching Oxlint preset already
-covers, so the two linters never report the same thing twice.
+If needed, you can [ignore files](#ignore-files-in-oxlint),
+[override Oxlint rules](#override-oxlint-rules), or
+[combine both](#combine-oxlint-configuration).
 
-**Type-aware.** These presets lint with type information (`projectService` is
-built in — no manual `parserOptions.project`), so your `tsconfig.json` must cover
-the files being linted. If the strict defaults are too loud on untyped edges,
-relax individual rules with an override config:
+### 5. Configure ESLint
+
+Create `eslint.config.mts` at the repo root. The example uses the base preset:
 
 ```ts
-export default defineConfigEslintBase({
-  rules: { '@typescript-eslint/no-unsafe-assignment': 'off' },
-})
+import { defineConfigEslintBase } from '@govnotech/conventions/eslint'
+
+/**
+ * Replace `defineConfigEslintBase` if another preset matches the project:
+ * - `defineConfigEslintNest`
+ * - `defineConfigEslintVue`
+ * - `defineConfigEslintQuasar`
+ *
+ * Uncomment only the add-ons the project uses in the config below.
+ */
+export default defineConfigEslintBase(
+  // {
+  //   ...eslintPluginPlaywright.config,
+  //   files: ['e2e/**/*.{test,spec}.{ts,tsx}'],
+  // },
+  // {
+  //   ...eslintPluginVitest.config,
+  //   files: ['src/**/*.{test,spec}.{ts,tsx}'],
+  // },
+  // { ...eslintPluginDrizzle.config, files: ['src/db/**/*.ts'] },
+  // { ...eslintPluginPinia.config, files: ['src/stores/**/*.ts'] },
+  // { ...eslintPluginVueA11y.config, files: ['**/*.vue'] },
+  // { ...eslintPluginJsdoc.config, files: ['src/**/*.ts'] },
+  // eslintPluginRxjs.config,
+  // eslintPluginRegexp.config,
+  // eslintPluginSonarjs.config,
+)
 ```
 
-## 6. Format and lint the project
+If needed, you can [ignore files](#ignore-files-in-eslint), use
+[add-ons](#available-eslint-add-ons), or
+[override ESLint rules](#override-eslint-rules).
 
-Run each pass and fix in place, before wiring up scripts or CI:
+### 6. Format and lint the project
 
-```bash
-pnpm exec oxfmt --write
-pnpm exec oxlint --fix
-pnpm exec eslint --fix
-```
+Run the following passes in order. Resolve every remaining error before moving
+to the next pass.
 
-Then confirm each pass is clean:
+1. Format, verify, and commit any resulting changes:
 
-```bash
-pnpm exec oxfmt --check
-pnpm exec oxlint --max-warnings 0
-pnpm exec eslint --max-warnings 0
-```
+   ```bash
+   pnpm exec oxfmt --write
+   pnpm exec oxfmt --check
+   ```
 
-Doing this first means the scripts and CI you add next don’t introduce a
-knowingly failing check.
+   ```text
+   style: format with oxfmt
+   ```
 
-## 7. Add npm scripts
+2. Apply Oxlint fixes, resolve the remaining findings, verify, and commit any
+   resulting changes:
+
+   ```bash
+   pnpm exec oxlint --fix
+   pnpm exec oxlint --max-warnings 0
+   ```
+
+   ```text
+   fix: apply oxlint rules
+   ```
+
+3. Apply ESLint fixes, resolve the remaining findings, verify, and commit any
+   resulting changes:
+
+   ```bash
+   pnpm exec eslint --fix
+   pnpm exec eslint --max-warnings 0
+   ```
+
+   ```text
+   fix: apply eslint rules
+   ```
+
+### 7. Add package scripts
 
 Install `npm-run-all2` to run multiple scripts in parallel or series:
 
@@ -235,7 +216,7 @@ Install `npm-run-all2` to run multiple scripts in parallel or series:
 pnpm add -D npm-run-all2
 ```
 
-Then add these scripts to `package.json`:
+Then add the following scripts to `package.json`:
 
 ```json
 {
@@ -255,38 +236,223 @@ Then add these scripts to `package.json`:
 You can now run:
 
 - `pnpm check` — run all checks in parallel
-- `pnpm check:code` — both linters (`lint:ox` + `lint:es`) in parallel
+- `pnpm check:code` — both linters in parallel
 - `pnpm check:format` — formatting check only
 - `pnpm fix` — all fixes in series
 - `pnpm fix:code` — both linters in series
 - `pnpm fix:format` — formatting fix only
 
-## 8. Configure IDEs
+### 8. Configure IDE
 
-Add only the editor configurations your team uses. The Oxc integration reports
-both Oxfmt and Oxlint; ESLint has a first-class extension in every major editor.
+Configure project-level formatting, linting, and EditorConfig integration for
+the IDE used by the project. Follow the instructions for [VS
+Code](#vs-code-cursor-and-vs-code-based-editors),
+[JetBrains](#jetbrains-ides), [Zed](#zed), [Neovim](#neovim), or
+[another editor](#other-editors).
 
-User-level editor settings can still override project setup.
+> **For coding agents:** identify the IDE only from concrete project artifacts,
+> such as editor-specific configuration files or directories. Standard IDE
+> entries in `.gitignore` do not count on their own; they are commonly added as
+> a precaution. If no concrete artifacts identify an IDE, ask the user which
+> project-level IDE settings to add, or whether to add none.
 
-Agent note: before adding IDE-specific settings, look for clear project
-artifacts that identify the IDEs in use. If there are none, ask the user which
-IDE configs to add.
+### 9. Configure CI
 
-- [VS Code](#vs-code)
-- [JetBrains](#jetbrains)
-- [Zed](#zed)
-- [Neovim](#neovim)
-- [Other editors](#other-editors)
+Add every `check:*` package script to the existing CI pipeline as a separate
+job. Follow the instructions for [GitHub Actions](#github-actions) or
+[GitLab CI](#gitlab-ci) after the platform is selected.
 
-### VS Code
+> **For coding agents:** If the repository has no CI configuration, ask the
+> user whether to configure GitHub Actions, GitLab CI, another platform, or no
+> CI. Apply the answer; do not silently skip this step.
 
-Also applies to Cursor and other VS Code–based editors — the
-[Oxc extension](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode)
-is published to both the Visual Studio Marketplace and
-[Open VSX](https://open-vsx.org/extension/oxc/oxc-vscode).
+## Override Oxfmt options
 
-Recommend the extensions and discourage Prettier as the project formatter in
-`.vscode/extensions.json`:
+Any Oxfmt option can be overridden by spreading the base preset and adding the
+desired option(s) to the config object:
+
+```ts
+import { oxfmtBase } from '@govnotech/conventions/oxfmt'
+import { defineConfig } from 'oxfmt'
+
+export default defineConfig({
+  ...oxfmtBase,
+
+  ignorePatterns: ['**/migrations/**'],
+  printWidth: 100,
+  singleAttributePerLine: false,
+})
+```
+
+Follow Oxfmt's [ignore files
+documentation](https://oxc.rs/docs/guide/usage/formatter/ignore-files) when
+setting `ignorePatterns`.
+
+## Oxlint
+
+### Ignore files in Oxlint
+
+```ts
+import { defineConfigOxlintBase } from '@govnotech/conventions/oxlint'
+
+const config = defineConfigOxlintBase()
+
+export default {
+  ...config,
+  ignorePatterns: [...(config.ignorePatterns ?? []), '**/__generated__/**'],
+}
+```
+
+Replace the preset and ignore entries with the project's selections.
+
+### Override Oxlint rules
+
+```ts
+import {
+  defineConfigOxlintBase,
+  type OxlintAddon,
+} from '@govnotech/conventions/oxlint'
+
+const projectRules = {
+  rules: {
+    'no-console': 'off',
+  },
+} satisfies OxlintAddon
+
+export default defineConfigOxlintBase(projectRules)
+```
+
+Replace the preset and rule entries with the project's selections.
+
+### Combine Oxlint configuration
+
+To combine Vitest, custom rules, and ignores, pass the add-ons to the selected
+preset and then extend its result:
+
+```ts
+import {
+  defineConfigOxlintBase,
+  oxlintPluginVitest,
+  type OxlintAddon,
+} from '@govnotech/conventions/oxlint'
+
+const projectRules = {
+  rules: {
+    'no-console': 'off',
+  },
+} satisfies OxlintAddon
+
+const config = defineConfigOxlintBase(oxlintPluginVitest, projectRules)
+
+export default {
+  ...config,
+  ignorePatterns: [...(config.ignorePatterns ?? []), '**/__generated__/**'],
+}
+```
+
+Replace the preset, ignore entries, and rule entries with the project's
+selections.
+
+## ESLint
+
+### Ignore files in ESLint
+
+Pass `globalIgnores` to the selected preset:
+
+```ts
+import { defineConfigEslintBase } from '@govnotech/conventions/eslint'
+import { globalIgnores } from 'eslint/config'
+
+export default defineConfigEslintBase(
+  globalIgnores(['**/__generated__/**', 'storybook-static/**']),
+)
+```
+
+Replace the preset and ignore entries with the project's selections.
+
+### Available ESLint add-ons
+
+| Export                   | Apply to                                |
+| ------------------------ | --------------------------------------- |
+| `eslintPluginPlaywright` | Playwright test files                   |
+| `eslintPluginVitest`     | Vitest test files                       |
+| `eslintPluginDrizzle`    | Files using the Drizzle database handle |
+| `eslintPluginPinia`      | Pinia store files                       |
+| `eslintPluginVueA11y`    | Vue files                               |
+| `eslintPluginRxjs`       | All files using RxJS                    |
+| `eslintPluginRegexp`     | All linted files                        |
+| `eslintPluginSonarjs`    | All linted files                        |
+| `eslintPluginJsdoc`      | Files whose JSDoc must be checked       |
+
+### Scope an ESLint add-on to files
+
+```ts
+import {
+  defineConfigEslintBase,
+  eslintPluginPlaywright,
+} from '@govnotech/conventions/eslint'
+
+export default defineConfigEslintBase({
+  ...eslintPluginPlaywright.config,
+  files: ['e2e/**/*.{test,spec}.{ts,tsx}'],
+})
+```
+
+Replace the preset, add-on, and file patterns with the project's selections.
+
+### Apply an ESLint add-on to all files
+
+```ts
+import {
+  defineConfigEslintBase,
+  eslintPluginRegexp,
+} from '@govnotech/conventions/eslint'
+
+export default defineConfigEslintBase(eslintPluginRegexp.config)
+```
+
+Replace the preset and add-on with the project's selections. Pass multiple
+add-ons as separate arguments.
+
+When using the Vitest ESLint add-on, also use the
+[Oxlint configuration from step 4](#4-configure-oxlint).
+
+### Override ESLint rules
+
+Pass project rules to the selected preset:
+
+```ts
+import { defineConfigEslintBase } from '@govnotech/conventions/eslint'
+
+export default defineConfigEslintBase({
+  rules: {
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+  },
+})
+```
+
+Replace the preset and rules with the project's selections.
+
+### Scope ESLint rules to files
+
+```ts
+import { defineConfigEslintBase } from '@govnotech/conventions/eslint'
+
+export default defineConfigEslintBase({
+  files: ['scripts/**/*.ts'],
+  rules: {
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+  },
+})
+```
+
+Replace the preset, file patterns, and rules with the project's selections.
+
+## IDE
+
+### VS Code, Cursor, and VS Code-based editors
+
+Create or merge `.vscode/extensions.json`:
 
 ```json
 {
@@ -299,7 +465,7 @@ Recommend the extensions and discourage Prettier as the project formatter in
 }
 ```
 
-Set up actions on save in `.vscode/settings.json`:
+Create or merge `.vscode/settings.json`:
 
 ```json
 {
@@ -318,71 +484,51 @@ Set up actions on save in `.vscode/settings.json`:
 }
 ```
 
-Prefer removing project-level language-specific `editor.defaultFormatter`
-overrides such as `[typescript]`, `[json]`, or `[vue]` when they only repeat or
-conflict with the shared formatter. A single project-level
-`editor.defaultFormatter` is easier to maintain.
+Remove conflicting project-level formatter and save-action settings. Keep every
+`editor.codeActionsOnSave` value set to `explicit`.
 
-If formatting behaves differently on one machine, check that developer’s VS Code
-User Settings for language-specific formatter overrides. User-level overrides
-can take precedence over project settings.
+### JetBrains IDEs
 
-For large or open-source teams, prefer making the project settings explicit for
-the languages your project formats:
-
-```jsonc
-{
-  // ...the settings from the previous example
-  "[typescript]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode",
-  },
-  "[json]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode",
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode",
-  },
-  // ...other languages your project formats
-}
-```
-
-### JetBrains
-
-For IntelliJ IDEA, WebStorm, and other JetBrains IDEs. Install the
-[Oxc plugin](https://plugins.jetbrains.com/plugin/27061-oxc):
-`Settings > Plugins > Marketplace`, search for “Oxc”. ESLint is supported
-natively under `Settings > Languages & Frameworks > JavaScript > Code Quality
-Tools > ESLint` (use the automatic configuration).
-
-The Oxc plugin hooks into the built-in `Code > Reformat Code` actions and can
-format on save — enable it in the plugin settings.
+1. Install the [Oxc plugin](https://plugins.jetbrains.com/plugin/27061-oxc).
+2. Enable Oxc formatting on save in the plugin settings.
+3. Set ESLint to automatic configuration under
+   `Languages & Frameworks > JavaScript > Code Quality Tools > ESLint`.
+4. Enable EditorConfig support.
 
 ### Zed
 
-Install the [Oxc extension](https://zed.dev/extensions/oxc), or let it
-auto-install via `.zed/settings.json`. Set `oxfmt` as the formatter there:
+Create or merge `.zed/settings.json`. Repeat the language entry for every
+language Oxfmt must format:
 
 ```json
 {
-  "auto_install_extensions": { "oxc": true },
+  "auto_install_extensions": {
+    "oxc": true
+  },
   "languages": {
     "TypeScript": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ],
       "format_on_save": "on",
-      "prettier": { "allowed": false }
+      "prettier": {
+        "allowed": false
+      }
     }
   }
 }
 ```
 
-Repeat the `languages` entry for each language Oxfmt should format —
-`JavaScript`, `TSX`, `JSON`, `Vue.js`, etc. See the
-[full example](https://github.com/oxc-project/oxc-zed/tree/main/examples/oxfmt).
-Zed’s built-in ESLint integration picks up the flat config automatically.
+Enable Zed's ESLint language server for the project.
 
 ### Neovim
 
-Via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig):
+Add these servers to the project's
+[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) setup:
 
 ```lua
 vim.lsp.enable('oxfmt')
@@ -390,65 +536,33 @@ vim.lsp.enable('oxlint')
 vim.lsp.enable('eslint')
 ```
 
-[conform.nvim](https://github.com/stevearc/conform.nvim) and
-[coc.nvim](https://github.com/neoclide/coc.nvim) (`:CocInstall coc-oxc`) work
-too.
-
 ### Other editors
 
-Use your editor’s Oxc and ESLint integrations when available. Without one, pipe
-files through the local CLI:
+Enable the editor's Oxfmt, Oxlint, ESLint, and EditorConfig integrations. If an
+Oxfmt integration is unavailable, format a file through the local CLI:
 
 ```bash
 pnpm exec oxfmt --stdin-filepath src/foo.ts < src/foo.ts
 ```
 
-## 9. Set up CI (optional)
+## CI
 
-Examples only — the real setup depends on your platform and existing pipeline.
-Both examples cache dependencies, then run each `check:*` script as a separate
-job. ESLint’s type-aware pass needs the project’s types available; in a monorepo
-that may mean building dependencies first.
-
-- [GitHub Actions](#github-actions)
-- [GitLab CI](#gitlab-ci)
+Run every `check:*` package script as a separate CI job. Merge the jobs into an
+existing pipeline without replacing unrelated jobs.
 
 ### GitHub Actions
 
-`.github/actions/setup/action.yml`:
+For a new pipeline, create `.github/workflows/check.yml`:
 
 ```yaml
-name: Setup
-description: Set up pnpm and Node, then install dependencies
-runs:
-  using: composite
-  steps:
-    - uses: pnpm/action-setup@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 24
-    - uses: actions/cache@v4
-      with:
-        path: node_modules
-        key: node-modules-${{ hashFiles('pnpm-lock.yaml') }}
-    - run: pnpm install --frozen-lockfile
-      shell: bash
-```
+name: Check
 
-`.github/workflows/ci.yml`:
-
-```yaml
-# ...
+on:
+  pull_request:
+  push:
 
 jobs:
-  install:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-
   check:
-    needs: install
     name: check:${{ matrix.script }}
     runs-on: ubuntu-latest
     strategy:
@@ -457,61 +571,46 @@ jobs:
         script: [format, code]
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - run: pnpm check:${{ matrix.script }}
-
-  # ...
 ```
 
 ### GitLab CI
 
-`.gitlab-ci.yml`:
+For a new pipeline, create `.gitlab-ci.yml`:
 
 ```yaml
-# ...
+image: node:24-alpine
 
 stages:
-  - deps
   - check
-  # ...
-
-default:
-  image: node:24-alpine
-  before_script:
-    - corepack enable
-    - corepack prepare --activate
-  cache:
-    key:
-      files:
-        - pnpm-lock.yaml
-    paths:
-      - node_modules
-    policy: pull
-
-install:
-  stage: deps
-  cache:
-    key:
-      files:
-        - pnpm-lock.yaml
-    paths:
-      - node_modules
-    policy: pull-push
-  script:
-    - pnpm install --frozen-lockfile
 
 check:
   stage: check
-  needs:
-    - install
   parallel:
     matrix:
       - SCRIPT: [format, code]
+  before_script:
+    - corepack enable
+    - pnpm config set store-dir .pnpm-store
   script:
+    - pnpm install --frozen-lockfile
     - pnpm check:$SCRIPT
-
-# ...
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
 ```
+
+For another platform, install the locked dependencies and run every `check:*`
+script as a separate job.
 
 ## License
 
