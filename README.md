@@ -1,5 +1,10 @@
 # @govnotech/conventions
 
+[![npm version](https://img.shields.io/npm/v/%40govnotech%2Fconventions?logo=npm)](https://www.npmjs.com/package/@govnotech/conventions)
+[![npm downloads](https://img.shields.io/npm/dm/%40govnotech%2Fconventions)](https://www.npmjs.com/package/@govnotech/conventions)
+[![Node.js version](https://img.shields.io/node/v/%40govnotech%2Fconventions?logo=nodedotjs)](https://www.npmjs.com/package/@govnotech/conventions)
+[![License](https://img.shields.io/npm/l/%40govnotech%2Fconventions)](./LICENSE)
+
 Shared, opinionated code-style conventions for TypeScript projects — a preset
 each for the formatter [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html),
 the fast linter [Oxlint](https://oxc.rs/docs/guide/usage/linter.html), and the
