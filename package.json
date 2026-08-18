@@ -66,7 +66,7 @@
     "fix:spelling-unused": "cspell-check-unused-words --fix"
   },
   "dependencies": {
-    "@darraghor/eslint-plugin-nestjs-typed": "^7.2.8",
+    "@darraghor/eslint-plugin-nestjs-typed": "^7.3.3",
     "@eslint/js": "^10.0.1",
     "@vitest/eslint-plugin": "^1.6.27",
     "@vue/eslint-config-typescript": "^14.9.0",
