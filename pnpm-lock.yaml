@@ -45,8 +45,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(eslint@10.8.1(jiti@2.7.0))
       eslint-plugin-rxjs-x:
-        specifier: ^1.0.2
-        version: 1.0.2(eslint@10.8.1(jiti@2.7.0))(typescript@6.0.3)
+        specifier: ^1.0.4
+        version: 1.0.4(eslint@10.8.1(jiti@2.7.0))(typescript@6.0.3)
       eslint-plugin-sonarjs:
         specifier: ^4.2.0
         version: 4.2.0(eslint@10.8.1(jiti@2.7.0))
@@ -1384,8 +1384,8 @@ packages:
     peerDependencies:
       eslint: '>=9.38.0'
 
-  eslint-plugin-rxjs-x@1.0.2:
-    resolution: {integrity: sha512-2gDid+qSLkeJfxXCMuBpsSt00TSH+skUtIw29Xgb6FHSTSRISRuRid/CtfqD05/7y1PNFxoGg9P90jm5u0FYAA==}
+  eslint-plugin-rxjs-x@1.0.4:
+    resolution: {integrity: sha512-XnUft1hXb1moAOpXnP2e8odAE3oYJ2Dm85gFUJXOkk5fKGTPo+jY6uV5+RzTUA0uF70xCS/qn8O03bURFS4aDQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       eslint: ^10.0.1
@@ -3184,9 +3184,9 @@ snapshots:
       regexp-ast-analysis: 0.7.1
       scslre: 0.3.0
 
-  eslint-plugin-rxjs-x@1.0.2(eslint@10.8.1(jiti@2.7.0))(typescript@6.0.3):
+  eslint-plugin-rxjs-x@1.0.4(eslint@10.8.1(jiti@2.7.0))(typescript@6.0.3):
     dependencies:
-      '@typescript-eslint/utils': 8.62.1(eslint@10.8.1(jiti@2.7.0))(typescript@6.0.3)
+      '@typescript-eslint/utils': 8.67.0(eslint@10.8.1(jiti@2.7.0))(typescript@6.0.3)
       decamelize: 6.0.1
       eslint: 10.8.1(jiti@2.7.0)
       ts-api-utils: 2.5.0(typescript@6.0.3)
