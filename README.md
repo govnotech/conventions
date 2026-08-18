@@ -60,7 +60,7 @@ Set up @govnotech/conventions in this project. Follow its README exactly and com
 - Node `>=22.18.0`
 - TypeScript `>=5.5.0`
 - Oxfmt `>=0.59.0 <1.0.0`
-- Oxlint `>=1.69.0 <2.0.0`
+- Oxlint `>=1.79.0 <2.0.0`
 - ESLint `>=9.0.0`
 - A package manager; commands below use pnpm
 
