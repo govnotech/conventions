@@ -151,11 +151,11 @@ import { defineConfigEslintBase } from '@govnotech/conventions/eslint'
 export default defineConfigEslintBase(
   // {
   //   ...eslintPluginPlaywright.config,
-  //   files: ['e2e/**/*.{test,spec}.{ts,tsx}'],
+  //   files: ['e2e/**/*.{spec,test}.{ts,tsx}'],
   // },
   // {
   //   ...eslintPluginVitest.config,
-  //   files: ['src/**/*.{test,spec}.{ts,tsx}'],
+  //   files: ['src/**/*.{spec,test}.{ts,tsx}'],
   // },
   // { ...eslintPluginDrizzle.config, files: ['src/db/**/*.ts'] },
   // { ...eslintPluginPinia.config, files: ['src/stores/**/*.ts'] },
@@ -397,7 +397,7 @@ import {
 
 export default defineConfigEslintBase({
   ...eslintPluginPlaywright.config,
-  files: ['e2e/**/*.{test,spec}.{ts,tsx}'],
+  files: ['e2e/**/*.{spec,test}.{ts,tsx}'],
 })
 ```
 
